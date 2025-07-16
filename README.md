@@ -18,7 +18,6 @@ MinecraftControlTool 是一個基於 Python Flask 的 Minecraft 伺服器管理�
 ## 🔧 環境需求
 
 - Python 3.11+
-- Node.js（若你日後想擴充為更複雜的前端）
 - 作業系統：Windows / macOS / Linux（跨平台）- 建議於Windows使用
 
 ## 📦 安裝教學
