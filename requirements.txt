@@ -2,3 +2,4 @@ flask
 flask[async]
 flask_socketio
 psutil
+dotenv
