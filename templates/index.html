@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>MinecraftControlTool</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌐 伺服器選擇</h1>
+            <p>以下為目前所有的伺服器</p>
+        </div>
+
+        {% if servers %}
+        <div class="server-list">
+            {% for server in servers %}
+            <div class="server-card">
+                <div class="server-name">{{ server.folder }}</div>
+                <p>{{ server.motd }}</p>
+                <a class="btn-select" href="/server/{{ server.folder }}">選擇</a>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="no-servers">
+            <p style="color: red;">目前沒有可用的伺服器。請先添加伺服器。</p>
+        </div>
+        {% endif %}
+
+        <div class="add-server">
+            <button class="btn-add" onclick="showAddServerInstructions()">添加伺服器</button>
+        </div>
+
+        <div class="footer">
+            版權所有 &copy; 2025 NewLand Community. All Rights Reserved.
+        </div>
+    </div>
+
+    <script src="../static/js/index.js"></script>
+</body>
+</html>

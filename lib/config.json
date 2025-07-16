@@ -1,0 +1,83 @@
+{
+    "ServerList": [
+        "ced4f57b-9871-4739-ae9f-b8ff8d638ae6",
+        "76398ad1-282f-4511-9a06-b14a4801caf4",
+        "1d03007c-6e07-4266-ac0b-640805a90b31"
+    ],
+    "ServerSystemLog": {
+        "1d03007c-6e07-4266-ac0b-640805a90b31": [
+            {
+                "time": "00:26:10",
+                "mark": "info",
+                "content": "伺服器啟動!"
+            },
+            {
+                "time": "00:28:18",
+                "mark": "info",
+                "content": "伺服器關閉!"
+            },
+            {
+                "time": "00:35:14",
+                "mark": "info",
+                "content": "伺服器啟動!"
+            },
+            {
+                "time": "00:39:33",
+                "mark": "info",
+                "content": "伺服器啟動!"
+            },
+            {
+                "time": "00:39:33",
+                "mark": "info",
+                "content": "伺服器啟動！"
+            },
+            {
+                "time": "00:41:22",
+                "mark": "info",
+                "content": "伺服器關閉!"
+            },
+            {
+                "time": "00:41:23",
+                "mark": "info",
+                "content": "伺服器關閉！"
+            }
+        ],
+        "76398ad1-282f-4511-9a06-b14a4801caf4": [
+            {
+                "time": "00:39:13",
+                "mark": "info",
+                "content": "伺服器啟動!"
+            },
+            {
+                "time": "00:39:13",
+                "mark": "info",
+                "content": "伺服器啟動！"
+            },
+            {
+                "time": "00:41:24",
+                "mark": "info",
+                "content": "伺服器關閉!"
+            },
+            {
+                "time": "00:41:24",
+                "mark": "info",
+                "content": "伺服器關閉！"
+            },
+            {
+                "time": "00:43:05",
+                "mark": "info",
+                "content": "伺服器啟動！"
+            },
+            {
+                "time": "00:43:05",
+                "mark": "info",
+                "content": "伺服器啟動!"
+            },
+            {
+                "time": "00:44:14",
+                "mark": "info",
+                "content": "伺服器關閉！"
+            }
+        ]
+    }
+}

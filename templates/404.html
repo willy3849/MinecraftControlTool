@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - 區塊找不到</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Press Start 2P', monospace;
+            background: linear-gradient(180deg, #87CEEB 0%, #B0E0E6 30%, #87CEEB 40%, #87CEEB 60%, #228B22 60%, #32CD32 70%, #228B22 80%, #8B4513 80%, #654321 90%, #696969 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            image-rendering: pixelated;
+            position: relative;
+        }
+
+        /* 雲朵 */
+        .cloud {
+            position: absolute;
+            background: white;
+            border-radius: 0;
+            opacity: 0.8;
+            animation: cloudMove 30s linear infinite;
+        }
+
+        .cloud::before,
+        .cloud::after {
+            content: '';
+            position: absolute;
+            background: white;
+        }
+
+        .cloud1 {
+            width: 60px;
+            height: 20px;
+            top: 10%;
+            left: -60px;
+        }
+
+        .cloud1::before {
+            width: 30px;
+            height: 20px;
+            top: -10px;
+            left: 10px;
+        }
+
+        .cloud1::after {
+            width: 40px;
+            height: 20px;
+            top: -10px;
+            right: 10px;
+        }
+
+        .cloud2 {
+            width: 80px;
+            height: 20px;
+            top: 20%;
+            left: -80px;
+            animation-delay: -15s;
+        }
+
+        .cloud2::before {
+            width: 40px;
+            height: 20px;
+            top: -10px;
+            left: 15px;
+        }
+
+        .cloud2::after {
+            width: 50px;
+            height: 20px;
+            top: -10px;
+            right: 15px;
+        }
+
+        @keyframes cloudMove {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(100vw + 200px)); }
+        }
+
+        /* Minecraft GUI風格容器 */
+        .minecraft-gui {
+            background: 
+                linear-gradient(45deg, #C6C6C6 25%, transparent 25%),
+                linear-gradient(-45deg, #C6C6C6 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, #C6C6C6 75%),
+                linear-gradient(-45deg, transparent 75%, #C6C6C6 75%);
+            background-size: 4px 4px;
+            background-position: 0 0, 0 2px, 2px -2px, -2px 0px;
+            border: 4px solid #555;
+            border-top-color: #FFF;
+            border-left-color: #FFF;
+            border-right-color: #222;
+            border-bottom-color: #222;
+            padding: 20px;
+            position: relative;
+            box-shadow: inset 0 0 0 2px #AAA;
+        }
+
+        .container {
+            text-align: center;
+            color: #FFF;
+            padding: 2rem;
+            position: relative;
+            z-index: 10;
+            background: rgba(0,0,0,0.8);
+            border: 2px solid #FFF;
+            border-radius: 0;
+            box-shadow: 
+                0 0 0 2px #000,
+                0 0 0 4px #FFF,
+                0 0 0 6px #000;
+        }
+
+        /* 真實的Minecraft字體效果 */
+        .minecraft-text {
+            text-shadow: 
+                2px 2px 0px #000,
+                4px 4px 0px #555;
+            letter-spacing: 2px;
+        }
+
+        .error-code {
+            font-size: 6rem;
+            font-weight: normal;
+            margin-bottom: 1rem;
+            color: #FF5555;
+            animation: glitch 3s infinite;
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        .error-message {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #FFFF55;
+        }
+
+        .error-description {
+            font-size: 0.7rem;
+            margin-bottom: 2rem;
+            color: #AAAAAA;
+            line-height: 1.8;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* 真實的Steve角色 */
+        .steve-container {
+            margin: 0 auto 2rem;
+            position: relative;
+            width: 120px;
+            height: 160px;
+            animation: steveBob 2s ease-in-out infinite;
+        }
+
+        .steve-head {
+            width: 60px;
+            height: 60px;
+            background: #FDBCB4;
+            border: 2px solid #000;
+            position: relative;
+            margin: 0 auto;
+            box-shadow: inset 0 0 0 2px #E8A682;
+        }
+
+        .steve-head::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 10px;
+            width: 8px;
+            height: 8px;
+            background: #000;
+            box-shadow: 20px 0 0 #000;
+        }
+
+        .steve-head::after {
+            content: '';
+            position: absolute;
+            top: 35px;
+            left: 20px;
+            width: 20px;
+            height: 4px;
+            background: #000;
+        }
+
+        .steve-hair {
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            width: 64px;
+            height: 20px;
+            background: #8B4513;
+            border: 2px solid #000;
+        }
+
+        .steve-body {
+            width: 60px;
+            height: 80px;
+            background: #4169E1;
+            border: 2px solid #000;
+            margin: 0 auto;
+            position: relative;
+            box-shadow: inset 0 0 0 2px #1E90FF;
+        }
+
+        .steve-arms {
+            position: absolute;
+            top: 0;
+            left: -30px;
+            width: 20px;
+            height: 60px;
+            background: #FDBCB4;
+            border: 2px solid #000;
+            box-shadow: 100px 0 0 #FDBCB4, 98px 0 0 2px #000;
+        }
+
+        .steve-legs {
+            position: absolute;
+            bottom: -40px;
+            left: 5px;
+            width: 20px;
+            height: 40px;
+            background: #4169E1;
+            border: 2px solid #000;
+            box-shadow: 30px 0 0 #4169E1, 28px 0 0 2px #000;
+        }
+
+        @keyframes steveBob {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* Minecraft按鈕 */
+        .minecraft-button {
+            background: 
+                linear-gradient(45deg, #C6C6C6 25%, transparent 25%),
+                linear-gradient(-45deg, #C6C6C6 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, #C6C6C6 75%),
+                linear-gradient(-45deg, transparent 75%, #C6C6C6 75%);
+            background-size: 2px 2px;
+            background-position: 0 0, 0 1px, 1px -1px, -1px 0px;
+            border: 2px solid #FFF;
+            border-bottom-color: #555;
+            border-right-color: #555;
+            padding: 10px 20px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-family: 'Press Start 2P', monospace;
+            color: #000;
+            margin: 0 10px;
+            box-shadow: 0 2px 0 #555;
+        }
+
+        .minecraft-button:hover {
+            background-color: #E6E6E6;
+            transform: translateY(1px);
+            box-shadow: 0 1px 0 #555;
+        }
+
+        .minecraft-button:active {
+            transform: translateY(2px);
+            box-shadow: none;
+        }
+
+        /* 物品欄 */
+        .inventory-bar {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 2px;
+            background: rgba(0,0,0,0.8);
+            padding: 4px;
+            border: 2px solid #FFF;
+        }
+
+        .inventory-slot {
+            width: 40px;
+            height: 40px;
+            background: 
+                linear-gradient(45deg, #8B8B8B 25%, transparent 25%),
+                linear-gradient(-45deg, #8B8B8B 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, #8B8B8B 75%),
+                linear-gradient(-45deg, transparent 75%, #8B8B8B 75%);
+            background-size: 2px 2px;
+            border: 1px solid #555;
+            border-top-color: #FFF;
+            border-left-color: #FFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+            color: #FFF;
+        }
+
+        .inventory-slot.selected {
+            border: 2px solid #FFF;
+            box-shadow: 0 0 0 2px #000;
+        }
+
+        /* 血量條 */
+        .health-bar {
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            display: flex;
+            gap: 2px;
+        }
+
+        .heart {
+            width: 20px;
+            height: 20px;
+            background: #FF0000;
+            position: relative;
+            transform: rotate(45deg);
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #FF0000;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -10px;
+            left: 0;
+        }
+
+        .heart::after {
+            top: 0;
+            left: -10px;
+        }
+
+        /* 飢餓值 */
+        .hunger-bar {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            display: flex;
+            gap: 2px;
+        }
+
+        .hunger {
+            width: 20px;
+            height: 20px;
+            background: #8B4513;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        }
+
+        /* 經驗值條 */
+        .exp-bar {
+            position: fixed;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 4px;
+            background: #000;
+            border: 1px solid #555;
+        }
+
+        .exp-fill {
+            height: 100%;
+            width: 30%;
+            background: #7CFC00;
+            animation: expPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes expPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* 搜尋框 */
+        .search-container {
+            margin: 2rem auto;
+            max-width: 400px;
+        }
+
+        .minecraft-input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 2px solid #555;
+            border-top-color: #000;
+            border-left-color: #000;
+            border-right-color: #FFF;
+            border-bottom-color: #FFF;
+            font-size: 0.7rem;
+            background: #000;
+            color: #FFF;
+            font-family: 'Press Start 2P', monospace;
+            box-shadow: inset 2px 2px 0px #333;
+        }
+
+        .minecraft-input::placeholder {
+            color: #AAA;
+        }
+
+        .minecraft-input:focus {
+            outline: none;
+            box-shadow: inset 2px 2px 0px #333, 0 0 0 2px #FFF;
+        }
+
+        /* 浮動方塊 */
+        .floating-blocks {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .block {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            border: 2px solid #000;
+            animation: blockFloat 6s ease-in-out infinite;
+        }
+
+        .grass-block {
+            background: linear-gradient(to bottom, #228B22 0%, #228B22 30%, #8B4513 30%, #8B4513 100%);
+        }
+
+        .stone-block {
+            background: #696969;
+        }
+
+        .diamond-block {
+            background: #40E0D0;
+        }
+
+        .wood-block {
+            background: #8B4513;
+        }
+
+        .gold-block {
+            background: #FFD700;
+        }
+
+        .block:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+        .block:nth-child(2) { top: 20%; right: 20%; animation-delay: -2s; }
+        .block:nth-child(3) { bottom: 10%; left: 20%; animation-delay: -4s; }
+        .block:nth-child(4) { bottom: 20%; right: 10%; animation-delay: -1s; }
+        .block:nth-child(5) { top: 50%; left: 5%; animation-delay: -3s; }
+        .block:nth-child(6) { top: 30%; right: 30%; animation-delay: -5s; }
+
+        @keyframes blockFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* 苦力怕警告 */
+        .creeper-warning {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #FF5555;
+            color: #FFF;
+            padding: 10px;
+            border: 2px solid #000;
+            font-size: 0.6rem;
+            animation: warning 1s ease-in-out infinite alternate;
+        }
+
+        @keyframes warning {
+            0% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+
+        @media (max-width: 768px) {
+            .error-code {
+                font-size: 4rem;
+            }
+            
+            .error-message {
+                font-size: 1rem;
+            }
+            
+            .error-description {
+                font-size: 0.6rem;
+            }
+            
+            .minecraft-button {
+                font-size: 0.6rem;
+                padding: 8px 16px;
+                margin: 5px;
+            }
+            
+            .inventory-bar {
+                bottom: 10px;
+                gap: 1px;
+            }
+            
+            .inventory-slot {
+                width: 30px;
+                height: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cloud cloud1"></div>
+    <div class="cloud cloud2"></div>
+
+    <div class="floating-blocks">
+        <div class="block grass-block"></div>
+        <div class="block stone-block"></div>
+        <div class="block diamond-block"></div>
+        <div class="block wood-block"></div>
+        <div class="block gold-block"></div>
+        <div class="block grass-block"></div>
+    </div>
+
+    <div class="creeper-warning">
+        ⚠️ 苦力怕出沒注意！
+    </div>
+
+    <div class="health-bar">
+        <div class="heart"></div>
+        <div class="heart"></div>
+        <div class="heart"></div>
+        <div class="heart"></div>
+        <div class="heart"></div>
+    </div>
+
+    <div class="hunger-bar">
+        <div class="hunger"></div>
+        <div class="hunger"></div>
+        <div class="hunger"></div>
+        <div class="hunger"></div>
+        <div class="hunger"></div>
+    </div>
+
+    <div class="exp-bar">
+        <div class="exp-fill"></div>
+    </div>
+
+    <div class="inventory-bar">
+        <div class="inventory-slot">⛏️</div>
+        <div class="inventory-slot">🗡️</div>
+        <div class="inventory-slot selected">🏹</div>
+        <div class="inventory-slot">🍖</div>
+        <div class="inventory-slot">🧱</div>
+        <div class="inventory-slot">💎</div>
+        <div class="inventory-slot">🔥</div>
+        <div class="inventory-slot">🌾</div>
+        <div class="inventory-slot">🛡️</div>
+    </div>
+
+    <div class="minecraft-gui">
+        <div class="container">
+            <div class="steve-container">
+                <div class="steve-head">
+                    <div class="steve-hair"></div>
+                </div>
+                <div class="steve-body">
+                    <div class="steve-arms"></div>
+                    <div class="steve-legs"></div>
+                </div>
+            </div>
+            
+            <div class="error-code minecraft-text">404</div>
+            <div class="error-message minecraft-text">區塊找不到！</div>
+            <div class="error-description minecraft-text">
+                糟糕！你走得太遠了...<br>
+                這個區塊還沒有被載入。<br>
+                可能是世界生成器出了問題，<br>
+                或者你掉進了虛空中！
+            </div>
+            
+            <div>
+                <a href="#" class="minecraft-button" onclick="respawn()">重新生成</a>
+                <a href="#" class="minecraft-button" onclick="teleport()">傳送回家</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function respawn() {
+            playMinecraftSound('click');
+            document.body.style.animation = 'fadeOut 0.5s ease-in-out';
+            setTimeout(() => {
+                window.location.reload();
+                document.body.style.animation = '';
+            }, 500);
+        }
+
+        function teleport() {
+            playMinecraftSound('teleport');
+            createTeleportEffect();
+            window.history.back();
+        }
+
+        function playMinecraftSound(type) {
+            const sounds = {
+                click: '*點擊音效*',
+                teleport: '*傳送音效*',
+                break: '*方塊破壞音效*'
+            };
+            console.log(sounds[type] || '*未知音效*');
+        }
+
+        function createTeleportEffect() {
+            const particles = [];
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'fixed';
+                particle.style.left = Math.random() * window.innerWidth + 'px';
+                particle.style.top = Math.random() * window.innerHeight + 'px';
+                particle.style.width = '4px';
+                particle.style.height = '4px';
+                particle.style.background = '#40E0D0';
+                particle.style.border = '1px solid #000';
+                particle.style.pointerEvents = 'none';
+                particle.style.zIndex = '1000';
+                particle.style.animation = 'teleportParticle 1s ease-out forwards';
+                
+                document.body.appendChild(particle);
+                particles.push(particle);
+            }
+            
+            setTimeout(() => {
+                particles.forEach(p => p.remove());
+            }, 1000);
+        }
+
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('block')) {
+                playMinecraftSound('break');
+                createBlockBreakEffect(e.target);
+            }
+        });
+
+        function createBlockBreakEffect(block) {
+            const rect = block.getBoundingClientRect();
+            const particles = [];
+            
+            for (let i = 0; i < 8; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'fixed';
+                particle.style.left = rect.left + Math.random() * rect.width + 'px';
+                particle.style.top = rect.top + Math.random() * rect.height + 'px';
+                particle.style.width = '6px';
+                particle.style.height = '6px';
+                particle.style.background = window.getComputedStyle(block).background;
+                particle.style.border = '1px solid #000';
+                particle.style.pointerEvents = 'none';
+                particle.style.zIndex = '1000';
+                particle.style.animation = 'blockBreakParticle 0.8s ease-out forwards';
+                
+                document.body.appendChild(particle);
+                particles.push(particle);
+            }
+            
+            setTimeout(() => {
+                particles.forEach(p => p.remove());
+            }, 800);
+        }
+
+        // 添加動畫樣式
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeOut {
+                0% { opacity: 1; }
+                100% { opacity: 0; }
+            }
+            
+            @keyframes teleportParticle {
+                0% {
+                    transform: scale(1) rotate(0deg);
+                    opacity: 1;
+                }
+                100% {
+                    transform: scale(0) rotate(360deg) translateY(-100px);
+                    opacity: 0;
+                }
+            }
+            
+            @keyframes blockBreakParticle {
+                0% {
+                    transform: scale(1);
+                    opacity: 1;
+                }
+                100% {
+                    transform: scale(0.5) translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        document.querySelectorAll('.inventory-slot').forEach((slot, index) => {
+            slot.addEventListener('click', function() {
+                document.querySelectorAll('.inventory-slot').forEach(s => s.classList.remove('selected'));
+                this.classList.add('selected');
+                playMinecraftSound('click');
+            });
+        });
+    </script>
+</body>
+</html>

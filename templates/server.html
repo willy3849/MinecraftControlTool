@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/server.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>MinecraftControlTool</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>MinecraftControlTool created by Yi3849</h1>
+            <div class="server-status">
+                <div class="status-badge status-offline" id="serverStatus">🔴 伺服器已停止</div>
+                {% if info['server-ip'] %}
+                <div>IP: {{ info['server-ip'] }}:{{ info['server-port'] }}</div>
+                <button id="copy-ip" style="background:none; border:none; cursor:pointer; font-size:1.2em;"><i class="fas fa-copy"></i></button>
+                {% else %}
+                <div>IP: {{ ip }}:{{ info['server-port'] }}</div>
+                <button id="copy-ip" style="background:none; border:none; cursor:pointer; font-size:1.2em;"><i class="fas fa-copy"></i></button>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- 主要控制台區域 -->
+        <div class="main-console">
+            <div class="console-header">
+                <div class="console-title">🖥️ 伺服器控制台</div>
+                <div class="server-controls">
+                    <button class="btn btn-success" onclick="startServer()">▶️ 啟動</button>
+                    <button class="btn btn-warning" onclick="restartServer()">🔄 重啟</button>
+                    <button class="btn btn-danger" onclick="stopServer()">⏹️ 停止</button>
+                    <button class="btn btn-primary" onclick="backupServer()">💾 備份</button>
+                </div>
+            </div>
+            
+            <div class="console-output" id="consoleOutput">
+                
+            </div>
+            
+            <div class="console-input">
+                <div class="console-input-label">指令 &gt;</div>
+                <input type="text" id="commandInput" placeholder="輸入 Minecraft 伺服器指令 (例如: list, stop, say Hello)" onkeypress="handleCommand(event)">
+                <button class="btn btn-primary" onclick="sendCommand()">發送</button>
+            </div>
+        </div>
+
+        <!-- 下方功能區域 -->
+        <div class="dashboard-grid">
+            <div class="card">
+                <h3>📊 系統資源監控</h3>
+                <div class="resource-bar">
+                    <div class="resource-label">
+                        <span>CPU 使用率</span>
+                        <span id="cpuUsage">1</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill progress-cpu" style="width: 45%"></div>
+                    </div>
+                </div>
+                <div class="resource-bar">
+                    <div class="resource-label">
+                        <span>記憶體使用</span>
+                        <span id="memoryUsage">6.2GB / {{ systemInfo.memTotal }}GB</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill progress-memory" style="width: 38%"></div>
+                    </div>
+                </div>
+                <div class="resource-bar">
+                    <div class="resource-label">
+                        <span>儲存空間</span>
+                        <span id="storageUsage">150GB / {{ systemInfo.storageTotal }}GB</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill progress-storage" style="width: 30%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card java-card">
+            <div class="card-body">
+                <h3 class="card-title">☕ 選擇 Java 版本</h3>
+                <div class="java-version-selector mt-3">
+                <button class="java-option" data-version="8">Java 8</button>
+                <button class="java-option" data-version="11">Java 11</button>
+                <button class="java-option active" data-version="17">Java 17</button>
+                <button class="java-option" data-version="21">Java 21</button>
+                </div>
+            </div>
+            </div>
+
+            <div class="card">
+                <h3>📝 系統日誌</h3>
+                <div class="recent-logs">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="floating-action" onclick="emergencyStop()" title="緊急停止">
+        ⚠️
+    </div>
+    <div class="copyright" style="text-align: center; margin-top: 20px; font-size: 0.9em; color: #7f8c8d;">
+        版權所有 &copy; 2025 NewLand Community. All Rights Reserved.
+    </div>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="../static/js/server.js"></script>
+</body>
+</html>
