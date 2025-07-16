@@ -20,6 +20,11 @@ MinecraftControlTool 是一個基於 Python Flask 的 Minecraft 伺服器管理�
 - Python 3.11+
 - 作業系統：Windows / macOS / Linux（跨平台）- 建議於Windows使用
 
+## 🖼️ 圖片預覽
+![首頁畫面](images/index.png)
+![控制台畫面](images/server.png)
+![終端機畫面](images/terminal.png)
+
 ## 📦 安裝教學
 
 1. **Clone 專案**
