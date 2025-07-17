@@ -281,5 +281,15 @@ def on_send_command(data):
     socketio.emit('console_output', {'uid': uid, 'data': f'Executed command: {cmd}'}, room=uid)
 
 if __name__ == '__main__':
+    print("""
+ __  __  _                                   __  _     _____                _                 _  _______                _
+|  \/  |(_)                                 / _|| |   / ____|              | |               | ||__   __|              | |
+| \  / | _  _ __    ___   ___  _ __   __ _ | |_ | |_ | |       ___   _ __  | |_  _ __   ___  | |   | |     ___    ___  | |
+| |\/| || || '_ \  / _ \ / __|| '__| / _` ||  _|| __|| |      / _ \ | '_ \ | __|| '__| / _ \ | |   | |    / _ \  / _ \ | |
+| |  | || || | | ||  __/| (__ | |   | (_| || |  | |_ | |____ | (_) || | | || |_ | |   | (_) || |   | |   | (_) || (_) || |
+|_|  |_||_||_| |_| \___| \___||_|    \__,_||_|   \__| \_____| \___/ |_| |_| \__||_|    \___/ |_|   |_|    \___/  \___/ |_|
+
+Created by Yi3849
+""")
     threading.Thread(target=emit_system_usage, daemon=True).start()
     socketio.run(app, host='0.0.0.0', port=WEB_PORT, debug=False)
