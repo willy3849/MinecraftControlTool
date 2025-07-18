@@ -11,7 +11,7 @@ MinecraftControlTool 是一個基於 Python Flask 的 Minecraft 伺服器管理�
 - 💬 實時控制台與指令輸入
 - 🧠 使用 Socket.IO 獲取即時資源使用率
 - 🧩 支援多伺服器配置管理
-- 💾 一鍵備份伺服器 - 尚未完成
+- 💾 一鍵備份伺服器
 
 ---
 
