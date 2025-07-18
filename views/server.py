@@ -1,6 +1,8 @@
 from flask import Flask, request, jsonify, render_template, Blueprint, abort
 import os
 from func.readProperties import read_server_properties, read_ops_json
+from func.java import find_all_java_versions
+from func.backup import backup_server
 import socket
 import json
 import platform
@@ -49,3 +51,16 @@ def server(UID):
         ip=ip,
         systemInfo=systemInfo
     )
+
+@app.route('/api/java_versions')
+def java_versions():
+    results = find_all_java_versions()
+    return jsonify([{'path': p, 'version': v} for p, v in results])
+
+@app.route('/backup/<uid>')
+def backup_route(uid):
+    success, result = backup_server(uid)
+    if success:
+        return jsonify({"status": "success", "backup_file": result})
+    else:
+        return jsonify({"status": "error", "message": result}), 500

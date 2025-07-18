@@ -6,6 +6,7 @@ import time
 from flask import Flask, request, jsonify
 from flask import render_template
 from func.loadConfig import WEB_PORT
+from func.java import find_all_java_versions
 import json
 from flask_socketio import SocketIO, emit, join_room
 import threading
@@ -49,7 +50,6 @@ def emit_system_usage():
             except PermissionError:
                 continue
         partition_usage_percent = partition_usage.percent
-
         data = {
             'cpu': cpu_percent,
             'memory': mem_percent,
@@ -71,9 +71,17 @@ for filename in os.listdir(views_dir):
 async def error_404(error):
     return render_template('404.html'), 404
 
+from flask import jsonify
+
 @app.route('/get_logs/<uid>')
 def get_logs(uid):
-    return jsonify(console_logs.get(uid, []))
+    proc = minecraft_processes.get(uid)
+    if proc and proc.poll() is None:
+        return jsonify(console_logs.get(uid, []))
+    else:
+        console_logs.pop(uid, None)
+        return jsonify({"status": "stopped", "logs": []})
+
 
 @app.route('/get_system_log/<uid>')
 def get_system_log(uid):
@@ -131,6 +139,10 @@ def set_java_version():
 
     return jsonify({'message': 'Java version set successfully'})
 
+@socketio.on('get_java_versions')
+def handle_get_java_versions():
+    versions = find_all_java_versions()
+    emit('java_versions', versions)
 
 @socketio.on('start_server')
 def on_start_server(uid):
@@ -266,6 +278,15 @@ def on_restart_server(uid):
         threading.Thread(target=start_minecraft_server, args=(uid,)).start()
         socketio.emit('server_status', {'status': 'started'}, room=uid)
 
+@socketio.on('check_server_status')
+def on_check_server_status(uid):
+    proc = minecraft_processes.get(uid)
+    if proc and proc.poll() is None:
+        status = 'started'
+    else:
+        status = 'stopped'
+    
+    emit('server_status', {'status': status}, room=uid)
 
 @socketio.on('send_command')
 def on_send_command(data):
@@ -281,5 +302,15 @@ def on_send_command(data):
     socketio.emit('console_output', {'uid': uid, 'data': f'Executed command: {cmd}'}, room=uid)
 
 if __name__ == '__main__':
+    print("""
+ __  __  _                                   __  _     _____                _                 _  _______                _
+|  \/  |(_)                                 / _|| |   / ____|              | |               | ||__   __|              | |
+| \  / | _  _ __    ___   ___  _ __   __ _ | |_ | |_ | |       ___   _ __  | |_  _ __   ___  | |   | |     ___    ___  | |
+| |\/| || || '_ \  / _ \ / __|| '__| / _` ||  _|| __|| |      / _ \ | '_ \ | __|| '__| / _ \ | |   | |    / _ \  / _ \ | |
+| |  | || || | | ||  __/| (__ | |   | (_| || |  | |_ | |____ | (_) || | | || |_ | |   | (_) || |   | |   | (_) || (_) || |
+|_|  |_||_||_| |_| \___| \___||_|    \__,_||_|   \__| \_____| \___/ |_| |_| \__||_|    \___/ |_|   |_|    \___/  \___/ |_|
+
+Created by Yi3849
+""")
     threading.Thread(target=emit_system_usage, daemon=True).start()
     socketio.run(app, host='0.0.0.0', port=WEB_PORT, debug=False)

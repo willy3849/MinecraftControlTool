@@ -5,6 +5,122 @@
         "1d03007c-6e07-4266-ac0b-640805a90b31"
     ],
     "ServerSystemLog": {
-        
+        "76398ad1-282f-4511-9a06-b14a4801caf4": [
+            {
+                "time": "19:59:56",
+                "mark": "info",
+                "content": "伺服器啟動!"
+            },
+            {
+                "time": "19:59:56",
+                "mark": "info",
+                "content": "伺服器啟動！"
+            },
+            {
+                "time": "20:00:47",
+                "mark": "info",
+                "content": "伺服器關閉!"
+            },
+            {
+                "time": "20:00:47",
+                "mark": "info",
+                "content": "伺服器關閉！"
+            },
+            {
+                "time": "21:11:12",
+                "mark": "info",
+                "content": "伺服器啟動!"
+            },
+            {
+                "time": "21:11:12",
+                "mark": "info",
+                "content": "伺服器啟動！"
+            },
+            {
+                "time": "21:12:38",
+                "mark": "info",
+                "content": "伺服器啟動!"
+            },
+            {
+                "time": "21:12:38",
+                "mark": "info",
+                "content": "伺服器啟動！"
+            },
+            {
+                "time": "21:13:44",
+                "mark": "info",
+                "content": "伺服器關閉!"
+            },
+            {
+                "time": "21:13:44",
+                "mark": "info",
+                "content": "伺服器關閉！"
+            },
+            {
+                "time": "21:14:03",
+                "mark": "info",
+                "content": "伺服器啟動!"
+            },
+            {
+                "time": "21:14:03",
+                "mark": "info",
+                "content": "伺服器啟動！"
+            },
+            {
+                "time": "21:14:17",
+                "mark": "info",
+                "content": "伺服器關閉!"
+            },
+            {
+                "time": "21:14:17",
+                "mark": "info",
+                "content": "伺服器關閉！"
+            },
+            {
+                "time": "21:14:50",
+                "mark": "info",
+                "content": "伺服器啟動!"
+            },
+            {
+                "time": "21:14:50",
+                "mark": "info",
+                "content": "伺服器啟動！"
+            },
+            {
+                "time": "21:15:46",
+                "mark": "info",
+                "content": "伺服器關閉!"
+            },
+            {
+                "time": "21:15:46",
+                "mark": "info",
+                "content": "伺服器關閉！"
+            },
+            {
+                "time": "14:41:39",
+                "mark": "info",
+                "content": "伺服器啟動!"
+            },
+            {
+                "time": "14:41:39",
+                "mark": "info",
+                "content": "伺服器啟動！"
+            },
+            {
+                "time": "14:42:08",
+                "mark": "info",
+                "content": "伺服器關閉！"
+            },
+            {
+                "time": "14:55:48",
+                "mark": "info",
+                "content": "伺服器啟動!"
+            },
+            {
+                "time": "14:55:48",
+                "mark": "info",
+                "content": "伺服器啟動！"
+            }
+        ]
     }
 }

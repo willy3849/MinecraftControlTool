@@ -1,8 +1,28 @@
 const socket = io();
 const segments = window.location.pathname.split('/');
 const currentUid = segments.pop() || segments.pop();
+const isServerRunning = false;
 
 socket.emit('join', { uid: currentUid });
+socket.emit('check_server_status', currentUid);
+
+function fetchJavaVersions() {
+    socket.emit('get_java_versions');
+    document.getElementById('javaButtonContainer').innerHTML = '🔄 載入中...';
+}
+
+socket.on('java_versions', (versions) => {
+    const container = document.getElementById('javaButtonContainer');
+    container.innerHTML = '';
+    versions.forEach(item => {
+        const btn = document.createElement('button');
+        btn.classList.add('java-option');
+        btn.setAttribute('data-path', item.path);
+        btn.textContent = item.version;
+        container.appendChild(btn);
+    });
+});
+
 
 socket.on('console_output', (msg) => {
     if(msg.uid === currentUid){
@@ -13,9 +33,11 @@ socket.on('console_output', (msg) => {
 socket.on('server_status', (msg) => {
     const statusEl = document.getElementById('serverStatus');
     if (msg.status === 'started') {
+        isServerRunning = true;
         statusEl.textContent = '🟢 伺服器運行中';
         statusEl.className = 'status-badge status-online';
     } else if (msg.status === 'stopped') {
+        isServerRunning = false;
         statusEl.textContent = '🔴 伺服器已停止';
         statusEl.className = 'status-badge status-offline';
     }
@@ -26,7 +48,6 @@ socket.on('system_usage', data => {
     document.getElementById('memoryUsage').textContent = data.memory + '%';
     document.getElementById('storageUsage').textContent = data.storage + '%';
 
-    // 如果你有進度條要同步更新，也可以加上：
     document.querySelector('.progress-fill.progress-cpu').style.width = data.cpu + '%';
     document.querySelector('.progress-fill.progress-memory').style.width = data.memory + '%';
     document.querySelector('.progress-fill.progress-storage').style.width = data.storage + '%';
@@ -245,10 +266,52 @@ function addConsoleMessage(message, type = 'log') {
     output.scrollTop = output.scrollHeight;
 }
 
-function backupServer() {
-    addConsoleMessage('[Server thread/INFO]: Creating backup...', 'info');
-    addConsoleMessage('[Server thread/INFO]: Backup created successfully!', 'info');
+function backupWarningIfServerStopped(isServerRunning) {
+    if (isServerRunning){
+        Swal.fire({
+            icon: 'warning',
+            title: '伺服器正在運行',
+            text: '伺服器目前是運行狀態，備份可能會不完整，確定要繼續嗎？',
+            showCancelButton: true,
+            confirmButtonText: '繼續備份',
+            cancelButtonText: '取消',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                backupServer();
+            }
+            });
+        } else {
+            backupServer();
+        }
 }
+
+function backupServer() {
+    const segments = window.location.pathname.split('/');
+    const uid = segments.pop() || segments.pop();
+    addConsoleMessage('[Server thread/INFO]: Creating backup...', 'info');
+    fetch(`/backup/${uid}`)
+        .then(res => res.json())
+        .then(data => {
+        if (data.status === 'success') {
+            Swal.fire({
+                icon: 'success',
+                title: '備份完成！',
+                text: data.message
+            })
+            addConsoleMessage('[Server thread/INFO]: Backup created successfully!', 'info');
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: '備份失敗！',
+                text: data.message
+            })
+            addConsoleMessage('[Server thread/WARN]: Backup creation failed!', 'warn');
+        }
+    })
+    .catch(err => addConsoleMessage('[Server thread/WARN]: Backup creation failed!', 'warn'), addConsoleMessage(err, 'warn'));
+}
+
 
 function handleCommand(event) {
     if (event.key === 'Enter') {
